@@ -6,7 +6,7 @@ def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print("Connected to broker")
         global Connected                #Use global variable
-        Connected = True                #Signal connection 
+        Connected = True                #Signal connection
 
     else:
         print("Connection failed")
@@ -15,11 +15,13 @@ Connected = False   #global variable for the state of the connection
 
 app = Flask(__name__)
 
-broker_address="m15.cloudmqtt.com"
-port=16735
+broker_address = "m15.cloudmqtt.com"
+port = 16735
 user = "bawbwoee"
 password = "fNQwDsCtKigz"
-client= paho.Client("echo-api")
+client = paho.Client("echo-api")
+topic = 'Alice'
+
 client.username_pw_set(user, password=password)
 client.on_connect= on_connect
 client.connect(broker_address, port=port)
@@ -31,7 +33,7 @@ while Connected != True:    #Wait for connection
 
 @app.route("/<route_var>", methods=['GET'])
 def update(route_var):
-    client.publish("Alice",route_var)
+    client.publish(topic,route_var)
     return route_var
 
 if __name__=='__main__':

@@ -1,0 +1,8 @@
+version: '3'
+services:
+    web_api:
+        container_name: web_api
+        build: .
+        restart: always
+        ports:
+            - "5000:5000"
