@@ -10,6 +10,7 @@ run_gunicorn
 run_flask_server
 push_to_server
 build_docker
+.env
 
 #Standard gitignore
 # Compiled source #

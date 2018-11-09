@@ -1,6 +1,7 @@
 from flask import Flask
 import paho.mqtt.client as paho
 import time
+import os
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -13,14 +14,12 @@ def on_connect(client, userdata, flags, rc):
 
 Connected = False   #global variable for the state of the connection
 
-app = Flask(__name__)
-
-broker_address = "m15.cloudmqtt.com"
-port = 16735
-user = "bawbwoee"
-password = "fNQwDsCtKigz"
-client = paho.Client("echo-api")
-topic = 'Alice'
+broker_address = os.environ['BRK_ADD']
+port = int(os.environ['BRK_PORT'])
+user = os.environ['BRK_USER']
+password = os.environ['BRK_PWD']
+client = paho.Client(os.environ['BRK_CLIENT'])
+topic = os.environ['BRK_TOPIC']
 
 client.username_pw_set(user, password=password)
 client.on_connect= on_connect
@@ -30,6 +29,8 @@ client.loop_start()
 
 while Connected != True:    #Wait for connection
     time.sleep(0.1)
+
+app = Flask(__name__)
 
 @app.route("/<route_var>", methods=['GET'])
 def update(route_var):

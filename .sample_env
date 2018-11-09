@@ -1,0 +1,8 @@
+FLASK_APP=app.py
+FLASK_ENV=development
+BRK_ADD=<your config here>
+BRK_PORT=<your config here>
+BRK_USER=<your config here>
+BRK_PWD=<your config here>
+BRK_CLIENT=<your config here>
+BRK_TOPIC=<your config here>
